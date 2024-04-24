@@ -1,0 +1,18 @@
+settings:
+  logLevel: Info
+  comparePairwise: False
+  normaliseImages: True
+  includeStandoff: True
+repoRoot: "../.."
+relPaths:
+  - division: "Example 1"
+    divisionId: "x1"
+    process: True
+    model: "input/example_1/edition.yaml"
+    images:
+      - "input/example_1/witness_A.yaml"
+      - "input/example_1/witness_B.yaml"
+    normRules: "hkoll/NormalisationRules.json"
+    standoff: []
+    output: "output/example_1_collated.xml"
+    logFile: "output/example_1_log.txt"

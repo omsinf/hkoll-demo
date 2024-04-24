@@ -1,0 +1,5 @@
+division: "Example 1"
+witnessId: "A"
+transcript:
+  - section: "A"
+    content: "Lorem ipsum"

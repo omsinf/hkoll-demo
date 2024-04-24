@@ -1,0 +1,6 @@
+division: "Example 1"
+divisionId: "ex1"
+transcript:
+  - section: "A"
+    sectionId: "A"
+    content: "Lorem ipsum"
