@@ -13,18 +13,18 @@ Content:
 
 ## Overview
 
-Hkoll was developed to collate several text versions with one ›main‹ version and calculate an *apparatus criticus*. Differences between the *textus constitutus* (called »model«) and one or more transcribed witnesses (called »images«) are classified as addition, omission, transposition or – if none of the former applies – plain variance.
+Hkoll was developed to collate several text versions with one ›main‹ version and calculate an *apparatus criticus* from the differences. Deviations between the *textus constitutus* (called »model«) and one or more transcribed witnesses (called »images«) are classified as addition, omission, transposition or – if none of the former applies – plain variance.
 
 Running Hkoll implies the following steps:
-1. **Parsing** model and images (these are provided to the software as separate YAML files and must follow some specific syntax rules, cf. below).
+1. **Parsing** model and images (these are provided to the software as separate YAML files and must follow some specific syntax rules, cf. [Data Format](#data-format)).
 2. **Normalising** the image readings in order to avoid trivial variants from different spelling.
-3. **Aligning** and **collating** the model and images (this is the core of Hkoll’s algorithm, but in a future release it is planned to offer also the use of CollateX [https://collatex.net/] for the alignment).
+3. **Aligning** and **collating** the model and images: This is the core of Hkoll’s algorithm, but in a future release it is planned to offer also the use of CollateX (https://collatex.net/) for the alignment.
 4. Integrating **standoff** information, i.e. any kind of information linked to a specific part of the model (e.g. philological or other commentary, translation, *apparatus fontium*).
 5. Formating the result as one comprehensive **(TEI) XML** file which may serve as input to further processing, e.g. to create HTML or PDF versions.
 
 The main difference to other collation tools is that Hkoll supports a highly automated workflow. Indeed, the idea is that Hkoll calculates the complete edition (taken as information, not as a specific representation, cf. [Thomas Stäcker: *A digital edition is not visible*](https://doi.org/10.26083/tuprints-00019469)) from the given input – model, images, normalisation rules, standoff – without any human interception afterwards. All decisions taken by the editors are instead included into the input files; Hkoll then derives the consequences.
 
-The advantage of such an automated workflow is that it enables additions, corrections, and revisions at any time without the need of manually adjusting the *apparatus criticus*.
+The advantage of such an automated workflow is that it enables additions, corrections, and revisions at any time without the need of manually adjusting the *apparatus criticus*. This is done by Hkoll in short time (seconds to minutes).
 
 ## Documentation
 
@@ -46,12 +46,13 @@ The config file is a YAML file with three sections.
 - `normaliseImages`: Do or do not normalise images, if normalisation rules are specified for a division (*True* or *False*).
 - `includeStandoff`: Do or do not integrate standoff, if standoff is specified for a division (*True* or *False*).
 
-`repoRoot`: Assuming that you keep all your project files within one root folder, this value provides the link between Hkoll’s location on your computer and the input files (enter an absolute or relative path seen from Hkoll).
+`repoRoot`: Assuming that you keep all your project files within one root folder, this value provides the link between Hkoll’s location on your computer and the input files (enter an absolute or relative path seen from Hkoll, e.g. `"../../config"` for »two folder levels up, then in the *config* folder«).
 
-`relPath`: In this section, the from the `repoRoot` for input (and logging output) files, for one or more divisions (separate texts, e.g. chapters or poems)
-- `division`
-- `divisionId`
-- `process`:
+`relPaths`: In this section, the relative paths from the `repoRoot` for input and output files are defined, for one or more divisions (separate texts, e.g. chapters or poems):
+- `division`: the name of the division (for human readers)
+- `divisionId`: the unique id of the division (for Hkoll)
+- `process`: option whether Hkoll processes this division (`True`) or skips it (`False`, e.g. because it is in a non-consistent state)
+- `model`, `images`, `normRules`, `standoff`, `output`, `logFile`: paths to the corresponding input and output files.
 
 #### Runtime options
 
@@ -59,7 +60,7 @@ Runtime options overrule settings from the config file.
 
 ##### General remarks
 - Options are prefixed with `--` (e.g. `--dev`, `--no-norm`).
-- Some options require arguments (one or possibly more than one). In the following instructions, arguments are indicated by angle brackets (`<argument>`): replace them with the correct values **without brackets**.
+- Some options require arguments (one or possibly more than one). In the following instructions, arguments are indicated by angle brackets (`<argument>`): replace them with the correct values **without brackets**. If more than one argument can follow an option, this is indicated by square brackets (`<arg> [<possibly-more-args>]`): separate the values by whitespace.
 
 ##### Runtime options in detail
 
@@ -115,6 +116,15 @@ TODO OMS
 
 TODO OMS
 
-- Change options
-- Add new witnesses
-- Add or change normalisation rules
+Some ideas on experimenting with Hkoll:
+
+- Modify the edition’s or witnesses’ texts and compare Hkoll’s results.
+- Add a new witness:
+  - Create a new YAML file in `input/example_1`.
+  - Imitate the structure of an existing witness file (for details, cf. [Data Format: Images](#images)).
+  - Enter the new path to the `images` in `Configs.yaml`.
+- Add or change normalisation rules.
+- Change [options](#options) (e.g. run Hkoll with `--no-norm` and compare the results).
+- Add a new division with model and images:
+  - Create the files, enter your own content.
+  - Update `Configs.yaml`.
