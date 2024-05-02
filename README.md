@@ -68,9 +68,9 @@ Runtime options overrule settings from the config file.
 - `--dev` (›development mode‹): Display variants as transcribed (i.e. without normalisation) and with encoded details (e.g. uncertain readings, suspension of abbreviations). This option supports decision-making during text constitution.
 - `--div <divId> [<divId>]` (›divisions‹): Process only the given divisions (identified by the `divisionId` of the `model` file), ignore all the others. This option accelerates the feedback loop when you are working on a specific division. (Cf. the `process` option in the config file.)
 - `--log-level <level>`: Set the logging level to one of the options: *None*, *Warn*, *Info*, or *Full*.
-- `--no-collat`
-- `--no-norm`
-- `--no-pairings` Pairwise collation may help identifying relations between witnesses, but most of the time only slows down Hkoll to finish.
+- `--no-collat`: Do not collate the images, just process the model. This option may be useful if you are currently working on standoff only.
+- `--no-norm`: Do not normalise, even if normalisation rules are specified.
+- `--no-pairings`: Pairwise collation may help identifying relations between witnesses, but most of the time only slows down Hkoll to finish.
 - `--no-standoff`: Ignore standoff data defined in the config file. This option is useful, if you want to ignore outdated ids (which Hkoll otherwise requires you to fix first), e.g. while you are working on the edition and ids are changing often.
 - `--wit <witId> [<witId>]` (›witnesses‹): Process only the given witnesses (identified by the `witnessId` of the witnesses’ transcription file), ignore all th others. This option accelerates the feedback loop if you are interested only in specific witnesses temporarily.
 
@@ -103,14 +103,41 @@ TODO OMS
 3. Run `./Hkoll-1.6.0.exe`
 4. Wait, then find the generated files in `<path/to>/hkoll-demo/output`. Keep an eye on the console output.
 
-#### Linux (Ubuntu)
+To generate a more readable HTML version of the collation result, [run XSLT transformation](#run-xslt-transformation).
 
-TODO OMS
+#### Linux (Ubuntu)
 
 1. Open a console/terminal.
 2. Run `cd <path/to>/hkoll-demo/hkoll/bins`
 3. Run `./Hkoll-1.6.0`
 4. Wait, then find the generated files in `<path/to>/hkoll-demo/output`. Keep an eye on the console output.
+
+To generate a more readable HTML version of the collation result, [run XSLT transformation](#run-xslt-transformation).
+
+### Run XSLT transformation
+
+#### Based on Java (recommended for non-geeks)
+
+You need Java installed on your computer. This is usually the case.
+
+1. Download the latest Saxon HE release from https://github.com/Saxonica/Saxon-HE/tree/main/12/Java (Mai 1st, 2024: `SaxonHE12-4J.zip`).
+2. Unzip the downloaded archive and copy `saxon-he-12-4.jar` (or the newer version you downloaded) somewhere on your computer, then get the path of the file (e.g. `C:/Users/johndoe/Desktop/saxon-he-12-4.jar`).
+3. Open a console/terminal at `<path/to>/hkoll-demo`.
+4. Run `java -cp <path/to/saxon-he-12-4.jar> net.sf.saxon.Transform -t -xi -s:output/example_1_collated.xml -xsl:xsl/simple.xsl -o:output/test.html`.
+5. Wait, then find the generated file in `<path/to>/hkoll-demo/output`.
+
+Note: If necessary, replace the paths for the source (`-s` – what XML to take as input) and output (`-o` – where to store the result) files.
+
+#### Based on npm (node package manager)
+
+For this solution, you need npm installed on your computer: https://www.npmjs.com/.
+
+1. Install `xslt3` via `npm install xslt3`.
+2. Open a console/terminal at `<path/to>/hkoll-demo`.
+3. Run `xslt3 -xsl:xsl/simple.xsl -s:output/example_1_collated.xml -o:output/test.html`.
+4. Wait, then find the generated file in `<path/to>/hkoll-demo/output`.
+
+Note: If necessary, replace the paths for the source (`-s` – what XML to take as input) and output (`-o` – where to store the result) files.
 
 ### Work on your texts
 

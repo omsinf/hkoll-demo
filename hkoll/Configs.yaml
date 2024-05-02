@@ -13,6 +13,7 @@ relPaths:
       - "input/example_1/witness_A.yaml"
       - "input/example_1/witness_B.yaml"
     normRules: "hkoll/NormalisationRules.json"
-    standoff: []
+    standoff:
+      - "input/example_1/standoff.yaml"
     output: "output/example_1_collated.xml"
     logFile: "output/example_1_log.txt"
