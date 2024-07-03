@@ -1,0 +1,16 @@
+{
+    "alphabet": {
+        "ç": "z"
+    },
+    "assimilation": {},
+    "anywhere": {},
+    "prefix": {},
+    "suffix": {},
+    "wholeWord": {
+        "camin": "cammin",
+        "ritrouai": "ritrovai",
+        "selua": "selva",
+        "uita": "vita"
+    },
+    "unchanged": []
+}

@@ -17,3 +17,26 @@ relPaths:
       - "input/example_1/standoff.yaml"
     output: "output/example_1_collated.xml"
     logFile: "output/example_1_log.txt"
+  - division: "Catull, Carmina"
+    divisionId: "cat"
+    process: True
+    model: "input/catull/catull_edition.yaml"
+    images:
+      - "input/catull/catull_G.yaml"
+      - "input/catull/catull_m.yaml"
+      - "input/catull/catull_O.yaml"
+      - "input/catull/catull_R.yaml"
+    standoff: []
+    output: "output/catull_collated.xml"
+    logFile: "output/catull_log.txt"
+  - division: "Dante, Commedia"
+    divisionId: "com"
+    process: True
+    model: "input/dante/dante_ed_Petrocchi.yaml"
+    images:
+      - "input/dante/dante_Ash.yaml"
+      - "input/dante/dante_Ham.yaml"
+      - "input/dante/dante_LauSC.yaml"
+    normRules: "input/dante/dante_NormRules.json"
+    standoff: []
+    output: "output/dante_collated.xml"
