@@ -5,18 +5,18 @@ settings:
   includeStandoff: True
 repoRoot: "../.."
 relPaths:
-  - division: "Example 1"
-    divisionId: "x1"
+  - division: "Abstract"
+    divisionId: "a"
     process: True
-    model: "input/example_1/edition.yaml"
+    model: "input/abstract/edition.yaml"
     images:
-      - "input/example_1/witness_A.yaml"
-      - "input/example_1/witness_B.yaml"
+      - "input/abstract/witness_A.yaml"
+      - "input/abstract/witness_B.yaml"
     normRules: "hkoll/NormalisationRules.json"
     standoff:
-      - "input/example_1/standoff.yaml"
-    output: "output/example_1_collated.xml"
-    logFile: "output/example_1_log.txt"
+      - "input/abstract/standoff.yaml"
+    output: "output/collated.xml"
+    logFile: "output/abstract_log.txt"
   - division: "Catull, Carmina"
     divisionId: "cat"
     process: True
@@ -27,7 +27,7 @@ relPaths:
       - "input/catull/catull_O.yaml"
       - "input/catull/catull_R.yaml"
     standoff: []
-    output: "output/catull_collated.xml"
+    output: "output/collated.xml"
     logFile: "output/catull_log.txt"
   - division: "Dante, Commedia"
     divisionId: "com"
@@ -39,4 +39,5 @@ relPaths:
       - "input/dante/dante_LauSC.yaml"
     normRules: "input/dante/dante_NormRules.json"
     standoff: []
-    output: "output/dante_collated.xml"
+    output: "output/collated.xml"
+    logFile: "output/dante_log.txt"

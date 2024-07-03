@@ -96,6 +96,11 @@ TODO OMS
 
 ### Run Hkoll (quickstart example)
 
+There are three examples prepared to demonstrate how Hkoll works:
+- `abstract`: basic non-sense examples, useful as a proof-of-concept
+- `catull`: Catullus’ carmen 1 (credits to http://www.catullusonline.org)
+- `dante`: incipit of Dante’s Commedia (credits to https://www.dantecommedia.it)
+
 #### Windows
 
 1. Open a console, e.g. PowerShell or cmd.
@@ -123,7 +128,7 @@ You need Java installed on your computer. This is usually the case.
 1. Download the latest Saxon HE release from https://github.com/Saxonica/Saxon-HE/tree/main/12/Java (Mai 1st, 2024: `SaxonHE12-4J.zip`).
 2. Unzip the downloaded archive and copy `saxon-he-12-4.jar` (or the newer version you downloaded) somewhere on your computer, then get the path of the file (e.g. `C:/Users/johndoe/Desktop/saxon-he-12-4.jar`).
 3. Open a console/terminal at `<path/to>/hkoll-demo`.
-4. Run `java -cp <path/to/saxon-he-12-4.jar> net.sf.saxon.Transform -t -xi -s:output/example_1_collated.xml -xsl:xsl/simple.xsl -o:output/test.html`.
+4. Run `java -cp <path/to/saxon-he-12-4.jar> net.sf.saxon.Transform -t -xi -s:output/collated.xml -xsl:xsl/simple.xsl -o:output/test.html`.
 5. Wait, then find the generated file in `<path/to>/hkoll-demo/output`.
 
 Note: If necessary, replace the paths for the source (`-s` – what XML to take as input) and output (`-o` – where to store the result) files.
@@ -134,7 +139,7 @@ For this solution, you need npm installed on your computer: https://www.npmjs.co
 
 1. Install `xslt3` via `npm install xslt3`.
 2. Open a console/terminal at `<path/to>/hkoll-demo`.
-3. Run `xslt3 -xsl:xsl/simple.xsl -s:output/example_1_collated.xml -o:output/test.html`.
+3. Run `xslt3 -xsl:xsl/simple.xsl -s:output/collated.xml -o:output/test.html`.
 4. Wait, then find the generated file in `<path/to>/hkoll-demo/output`.
 
 Note: If necessary, replace the paths for the source (`-s` – what XML to take as input) and output (`-o` – where to store the result) files.
@@ -147,7 +152,7 @@ Some ideas on experimenting with Hkoll:
 
 - Modify the edition’s or witnesses’ texts and compare Hkoll’s results.
 - Add a new witness:
-  - Create a new YAML file in `input/example_1`.
+  - Create a new YAML file in `input/abstract`.
   - Imitate the structure of an existing witness file (for details, cf. [Data Format: Images](#images)).
   - Enter the new path to the `images` in `Configs.yaml`.
 - Add or change normalisation rules.

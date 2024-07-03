@@ -1,0 +1,9 @@
+division: "Abstract"
+divisionId: "a"
+appType: comment
+apps:
+  - from: aA1-1
+    fromW: Lorem
+    to: aA1-2
+    toW: ipsum
+    app: "Standoff of type comment from aA1-1 (Lorem) to aA1-2 (ipsum)."

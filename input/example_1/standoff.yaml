@@ -1,9 +1,0 @@
-division: "Example 1"
-divisionId: "ex1"
-appType: comment
-apps:
-  - from: ex1A1-1
-    fromW: Lorem
-    to: ex1A1-2
-    toW: ipsum
-    app: "This is a comment"
