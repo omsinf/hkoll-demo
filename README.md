@@ -41,7 +41,8 @@ General remark: There are two ways to pass options to Hkoll – the config file 
 The config file is a YAML file with three sections.
 
 `settings`: General settings for Hkoll, mainly activating or deactivating single steps.
-- `logLevel`: Hkoll produces logging information, helping you to fix technical problems, but also verify that automated tasks run as expected, e.g. rule-based normalisation. Available log levels are: *None*, *Warn*, *Info* or *Full*.
+- `logLevel`: Hkoll produces logging information, helping you to fix technical problems, but also verify that automated tasks run as expected, e.g. rule-based normalisation. Available log levels are: *None*, *Step*, *Warn*, *Info* or *Full*.
+- `applyCorrection`: Do or do not apply correction/charitable interpretation to replace the actual (e.g. misspelled) reading (*True* or *False*)
 - `comparePairwise`: Do or do not compare images to each other in addition to comparing them all to the model (*True* or *False*). Note: This has no effect on the calculated edition, but may reveal insights into the relation among witnesses expressed in the log file.
 - `normaliseImages`: Do or do not normalise images, if normalisation rules are specified for a division (*True* or *False*).
 - `includeStandoff`: Do or do not integrate standoff, if standoff is specified for a division (*True* or *False*).
@@ -60,19 +61,20 @@ Runtime options overrule settings from the config file.
 
 ##### General remarks
 - Options are prefixed with `--` (e.g. `--dev`, `--no-norm`).
-- Some options require arguments (one or possibly more than one). In the following instructions, arguments are indicated by angle brackets (`<argument>`): replace them with the correct values **without brackets**. If more than one argument can follow an option, this is indicated by square brackets (`<arg> [<possibly-more-args>]`): separate the values by whitespace.
+- Some options require arguments (one or possibly more than one). In the following instructions, arguments are indicated by angle brackets (`<argument>`): replace them with the correct values **without brackets**. If more than one argument can follow an option, this is indicated by square brackets (`<arg> [<possibly-more-args>]`): separate the values by comma (without whitespace).
 
 ##### Runtime options in detail
 
 - `--config-file <path>`: Instead of the standard path and file name (`../Configs.yaml`), use the given path to find the config file. This options gives you more freedom in your project setup.
 - `--dev` (›development mode‹): Display variants as transcribed (i.e. without normalisation) and with encoded details (e.g. uncertain readings, suspension of abbreviations). This option supports decision-making during text constitution.
-- `--div <divId> [<divId>]` (›divisions‹): Process only the given divisions (identified by the `divisionId` of the `model` file), ignore all the others. This option accelerates the feedback loop when you are working on a specific division. (Cf. the `process` option in the config file.)
+- `--div <divId>[,<divId>]` (›divisions‹): Process only the given divisions (identified by the `divisionId` of the `model` file), ignore all the others. This option accelerates the feedback loop when you are working on a specific division. (Cf. the `process` option in the config file.)
 - `--log-level <level>`: Set the logging level to one of the options: *None*, *Warn*, *Info*, or *Full*.
 - `--no-collat`: Do not collate the images, just process the model. This option may be useful if you are currently working on standoff only.
+- `--no-corr`: Do not apply correction/charitable interpretation.
 - `--no-norm`: Do not normalise, even if normalisation rules are specified.
-- `--no-pairings`: Pairwise collation may help identifying relations between witnesses, but most of the time only slows down Hkoll to finish.
+- `--no-pairwise`: Pairwise collation may help identifying relations between witnesses, but most of the time only slows down Hkoll to finish.
 - `--no-standoff`: Ignore standoff data defined in the config file. This option is useful, if you want to ignore outdated ids (which Hkoll otherwise requires you to fix first), e.g. while you are working on the edition and ids are changing often.
-- `--wit <witId> [<witId>]` (›witnesses‹): Process only the given witnesses (identified by the `witnessId` of the witnesses’ transcription file), ignore all th others. This option accelerates the feedback loop if you are interested only in specific witnesses temporarily.
+- `--wit <witId>[,<witId>]` (›witnesses‹): Process only the given witnesses (identified by the `witnessId` of the witnesses’ transcription file), ignore all th others. This option accelerates the feedback loop if you are interested only in specific witnesses temporarily.
 
 ### Data format
 
@@ -105,7 +107,7 @@ There are three examples prepared to demonstrate how Hkoll works:
 
 1. Open a console, e.g. PowerShell or cmd.
 2. Run `cd <path/to>/hkoll-demo/hkoll/bins`
-3. Run `./Hkoll-1.6.0.exe`
+3. Run `./Hkoll-1.8.0.exe`
 4. Wait, then find the generated files in `<path/to>/hkoll-demo/output`. Keep an eye on the console output.
 
 To generate a more readable HTML version of the collation result, [run XSLT transformation](#run-xslt-transformation).
@@ -114,7 +116,7 @@ To generate a more readable HTML version of the collation result, [run XSLT tran
 
 1. Open a console/terminal.
 2. Run `cd <path/to>/hkoll-demo/hkoll/bins`
-3. Run `./Hkoll-1.6.0`
+3. Run `./Hkoll-1.8.0`
 4. Wait, then find the generated files in `<path/to>/hkoll-demo/output`. Keep an eye on the console output.
 
 To generate a more readable HTML version of the collation result, [run XSLT transformation](#run-xslt-transformation).
