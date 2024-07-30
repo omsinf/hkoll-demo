@@ -1,4 +1,5 @@
 division: "Catulli carmina"
+divisionId: "cat"
 witnessId: "G"
 transcript:
   - section: "carmen 1"
