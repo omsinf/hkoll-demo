@@ -96,14 +96,34 @@ TODO OMS
 
 ## How-To
 
-### Run Hkoll (quickstart example)
-
 There are three examples prepared to demonstrate how Hkoll works:
 - `abstract`: basic non-sense examples, useful as a proof-of-concept
-- `catull`: Catullus’ carmen 1 (credits to http://www.catullusonline.org)
+- `catullus`: Catullus’ carmen 1 (credits to http://www.catullusonline.org)
 - `dante`: incipit of Dante’s Commedia (credits to https://www.dantecommedia.it)
 
-Execute the following steps:
+
+Using Hkoll effectively takes two steps: first running Hkoll, then transforming the output to a more readable HTML format.
+Instructions for each step follow, but the easiest way to use Hkoll is running the prepared PowerShell script.
+
+### Run PowerShell script (all-in-one solution)
+
+With only one command, you can run Hkoll and a XSLT transformation for an example of your choice.
+
+Prerequisites:
+- You have PowerShell installed on your computer (default on Windows, available for Linux and MacOs: https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell).
+- You have Java installed.
+- You have Saxon available (cf. [below](#based-on-java-recommended-for-non-geeks)).
+
+How-to:
+
+1. Open PowerShell and go to the hkoll-demo folder (or open PowerShell from the hkoll-demo folder).
+2. Choose the example (›division‹) to process and get its `divisionId` (from the `Configs.yaml` or any of the model/image files), e.g. `cat` for `catullus`.
+3. Run `./RunHkoll.ps1 <divId>` with the divisionId of your choice, e.g. `./RunHkoll.ps1 cat`.
+4. That should do. Keep an eye on the console output in case of error messages.
+
+### Run Hkoll
+
+To run Hkoll on one or more of the examples, execute the following steps:
 
 1. Open a terminal/shell/console.
 2. Run `cd <path/to>/hkoll-demo/hkoll/bins`
@@ -115,19 +135,40 @@ Execute the following steps:
 
 To generate a more readable HTML version of the collation result, [run XSLT transformation](#run-xslt-transformation).
 
+#### Troubleshooting
+
+##### »Invalid character« exception (Windows)
+
+Problem:
+Hkoll starts, but fails with `invalid character` error message.
+
+Possible fix:
+Run `chcp 65001` in your console before running Hkoll.
+
+Background:
+Probably your console’s code page does not support all characters printed by Hkoll.
+You can check the current code page by running `chcp`: if it is not 65001, this may be the error cause.
+The command `chcp 65001` sets it to the UTF-8 equivalent and should solve the problem.
+(Version 1.9.0 addresses this problem.)
+
 ### Run XSLT transformation
 
-#### Based on Java (recommended for non-geeks)
+Choose one of the following two solutions.
 
-You need Java installed on your computer. This is usually the case.
+#### Based on Java
 
-1. Download the latest Saxon HE release from https://github.com/Saxonica/Saxon-HE/tree/main/12/Java (Mai 1st, 2024: `SaxonHE12-4J.zip`).
-2. Unzip the downloaded archive and copy `saxon-he-12-4.jar` (or the newer version you downloaded) somewhere on your computer, then get the path of the file (e.g. `C:/Users/<your-name>/Desktop/saxon-he-12-4.jar`).
-3. Open a terminal/shell/console at `<path/to>/hkoll-demo`.
-4. Run `java -cp <path/to>/saxon-he-12-4.jar net.sf.saxon.Transform -t -xi -s:output/<division>.xml -xsl:xsl/simple.xsl -o:output/test.html`. In `-s` (source parameter: what XML file to take as input), replace `<division>` with `abstract`, `catull` or `dante`.
-1. Wait, then find the generated file in `<path/to>/hkoll-demo/output` (unless you changed the `-o` output parameter, it is `test.html`).
+Prerequisites:
+- You need Java installed on your computer.
+- You have Saxon available. Therefore:
+  1. Download the latest Saxon HE release from https://github.com/Saxonica/Saxon-HE/tree/main/12/Java (Mai 1st, 2024: `SaxonHE12-4J.zip`).
+  2. Unzip the downloaded archive and copy `saxon-he-12-4.jar` (or the newer version you downloaded) somewhere on your computer, then get the path of the file (e.g. `C:/Users/<your-name>/Desktop/saxon-he-12-4.jar`).
+  3. Store the path of the Saxon JAR in a new environment variable `SAXON_JAR`.
 
+How-to:
 
+1. Open a terminal/shell/console at `<path/to>/hkoll-demo`.
+2. Run `java -cp <path/to>/saxon-he-12-4.jar net.sf.saxon.Transform -t -xi -s:output/<division>.xml -xsl:xsl/simple.xsl -o:output/test.html`. In `-s` (source parameter: what XML file to take as input), replace `<division>` with `abstract`, `catullus` or `dante`.
+3. Wait, then find the generated file in `<path/to>/hkoll-demo/output` (unless you changed the `-o` output parameter, it is `test.html`).
 
 #### Based on npm (node package manager)
 
@@ -135,7 +176,7 @@ For this solution, you need npm installed on your computer: https://www.npmjs.co
 
 1. Install `xslt3` via `npm install xslt3`.
 2. Open a terminal/shell/console at `<path/to>/hkoll-demo`.
-3. Run `xslt3 -xsl:xsl/simple.xsl -s:output/<division>.xml -o:output/test.html`. In `-s` (source parameter: what XML file to take as input), replace `<division>` with `abstract`, `catull` or `dante`.
+3. Run `xslt3 -xsl:xsl/simple.xsl -s:output/<division>.xml -o:output/test.html`. In `-s` (source parameter: what XML file to take as input), replace `<division>` with `abstract`, `catullus` or `dante`.
 4. Wait, then find the generated file in `<path/to>/hkoll-demo/output` (unless you changed the `-o` output parameter, it is `test.html`).
 
 ### Work on your texts

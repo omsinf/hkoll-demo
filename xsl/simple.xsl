@@ -182,7 +182,14 @@
     <xsl:function name="hkoll:ripHash">
         <xsl:param name="idLabels" />
         <xsl:for-each select="$idLabels">
-            <xsl:value-of select="substring(., 2)" />
+            <xsl:choose>
+                <xsl:when test="starts-with(., '#')">
+                    <xsl:value-of select="substring(., 2)" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="."/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
     </xsl:function> 
     
