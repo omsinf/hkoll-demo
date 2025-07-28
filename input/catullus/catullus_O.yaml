@@ -2,7 +2,7 @@ division: "Catulli carmina"
 divisionId: "cat"
 witnessId: "O"
 transcript:
-  - section: "carmen 1"
+  - sectionId: "c1"
     content: '<pb edRef="#O" n="1r" />
       CUi dono lepidum nouum libellum
       Arido m{od}o pumice expolitum

@@ -2,5 +2,5 @@ division: "Abstract"
 divisionId: "a"
 witnessId: "A"
 transcript:
-  - section: "A"
+  - sectionId: "A"
     content: "Lorem ipsum dolor variantInA amet."

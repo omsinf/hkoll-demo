@@ -8,9 +8,9 @@ $ROOT = Get-Location
 "[OK] Root set: $ROOT"
 
 # Select the executable according to detected operating system
-$HkollExe = If ($IsLinux) { "$ROOT/hkoll/bins/linux/Hkoll-1.8.1" }
+$HkollExe = If ($IsLinux) { "$ROOT/hkoll/bins/linux/Hkoll-1.10.2" }
 ElseIf ($IsMacOS) { "$ROOT/hkoll/bins/macos/Hkoll-1.8.1" }
-ElseIf ($IsWindows) { "$ROOT/hkoll/bins/windows/Hkoll-1.8.1.exe" }
+ElseIf ($IsWindows) { "$ROOT/hkoll/bins/windows/Hkoll-1.10.2.exe" }
 
 If (Test-Path -Path $HkollExe -PathType Leaf) { "[OK] Found executable: $HkollExe" }
 Else { "[FAIL] Did not find executable: $HkollExe'"; "Are you running this script from the correct path?"; Exit }

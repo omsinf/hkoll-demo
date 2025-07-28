@@ -2,7 +2,7 @@ division: "Commedia"
 divisionId: "com"
 witnessId: "Ham"
 transcript:
-  - section: "Inferno 1"
+  - sectionId: "inf1"
     content: "NEl meçço del camin di nostra uita
       Mi ritrouai per una selua scura
       Che la diricta uia era smarita

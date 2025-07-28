@@ -2,7 +2,7 @@ division: "Commedia"
 divisionId: "com"
 witnessId: "LauSC"
 transcript:
-  - section: "Inferno 1"
+  - sectionId: "inf1"
     content: "NEL MEZZO del camin di nostra uita
       mi ritrouai per una selua oscura
       che la diricta uia era ismarrita

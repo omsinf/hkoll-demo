@@ -2,7 +2,7 @@ division: "Catulli carmina"
 divisionId: "cat"
 witnessId: "G"
 transcript:
-  - section: "carmen 1"
+  - sectionId: "c1"
     content: '<pb edRef="#G" n="1r" />
       [|Catulli Ueronensis liber incipit. ad Cornelium.]
       CUi dono lepidum nouum libellum /

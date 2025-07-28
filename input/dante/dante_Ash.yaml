@@ -2,7 +2,7 @@ division: "Commedia"
 divisionId: "com"
 witnessId: "Ash"
 transcript:
-  - section: "Inferno 1"
+  - sectionId: "inf1"
     content: "NEl meço del chamin di nostra uita
       mi ritrouai per una selua oscura
       che lla diricta uia era smarrita
