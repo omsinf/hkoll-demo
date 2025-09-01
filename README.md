@@ -1,15 +1,31 @@
 # Hkoll Demo
 
-This repository contains a ready-to-use demo setup for Hkoll, a software for text collation, aimed to support an automated workflow for critical editions.
+This repository contains a ready-to-use demo setup for Hkoll, a software for text collation, aimed to support an automated workflow for critical editions in the field of philology.
 
 Hkoll is written in Haskell (https://www.haskell.org/),
 but no programming skills are required to use it.
-This README file provides a documentation and step-by-step instructions for both Windows and Linux (Ubuntu) users.
+This README file provides a documentation and step-by-step instructions for both Windows and Unix (Linux and macOS) users.
 
 Content:
-- The [Overview](#overview) section sets out the general ideas of Hkoll and its application to philological tasks.
-- [Documentation](#documentation) explains the data format of the input files as well as all available configuration and runtime options.
-- [How-To](#how-to) tells you how to try it yourself – with your own texts, if you want, but a quickstart example is prepared, too.
+- [Overview](#overview): sets out the general ideas of Hkoll and its application to philological tasks.
+- [Documentation](#documentation): explains the data format of the input files as well as all available configuration and runtime options.
+  - [Options](#options)
+    - [Config file](#config-file)
+    - [Runtime options](#runtime-options)
+  - [Data format](#data-format)
+    - [Model (=Edition)](#model--edition)
+    - [Images (=Witnesses)](#images--witnesses)
+    - [Normalisation rules](#normalisation-rules)
+    - [Standoff](#standoff)
+  - [Hkoll syntax](#hkoll-syntax)
+    - [General syntax](#general-syntax)
+    - [Syntax regarding single words](#syntax-regarding-single-words)
+    - [Syntax regarding word groups](#syntax-regarding-word-groups)
+- [How-To](#how-to): tells you how to try Hkoll yourself – with your own texts, if you want, but a quickstart example is prepared, too.
+  - [Run PowerShell script (all-in-one solution)](#run-powershell-script-all-in-one-solution)
+  - [Run Hkoll](#run-hkoll)
+  - [Run XSLT transformation](#run-xslt-transformation)
+  - [Next step: Start your own project](#next-step-start-your-own-project)
 
 ## Overview
 
@@ -136,6 +152,10 @@ In contrast to the full transcription of a section, image fragments are linked t
 - `toW`: »word value« of the token referenced by `to`, serving as a validity check
 - `app`: transcription of the fragment, following the [Hkoll syntax](#hkoll-syntax) (from »apparatus«: old wording, may change in the future)
 
+##### Single Token Variants
+
+TODO OMS
+
 #### Normalisation rules
 
 TODO OMS
@@ -146,14 +166,56 @@ TODO OMS
 
 ### Hkoll syntax
 
-Text provided to Hkoll, _textus constituts_ as well as transcriptions, can contain two distinct markup systems: XML and a specific syntax for common philological annotations.
+Text provided to Hkoll, _textus constitutus_ as well as transcriptions, can contain two distinct markup systems: XML and a specific syntax for common philological annotations.
 
-XML from the model is simply forwarded to the output and can thus be used to format the edition’s text.
-The Hkoll collation algorithm is agnostic to XML markup present in model and image files, so XML from the images is discarded – with the one exception of XML milestone elements whose names are defined in the [options](#options), e.g. to include witnesses’ page/column breaks into the edition.
+XML from the model is simply forwarded to the output and can thus be used to format the edition’s text. XML markup present in image files is mostly discarded – with the one exception of XML milestone elements whose names are defined in the [options](#options), e.g. to include witnesses’ page/column breaks into the edition.
+
+For the rest, it is only required that the nesting of XML elements does not interfere with the nesting of Hkoll syntax contexts (the same way that XML opening and closing tags must not cross).
 
 Designed in order to encode important philological phenomena like scribe’s corrections or uncertain readings in an easy manner, Hkoll provides a specific markup syntax, loosely inspired by the Leiden Conventions for epigraphy.
 
-TODO OMS
+Note: When parsing fails, look closely at the error message to find the invalid input.
+
+#### General syntax
+
+| Markup                                                | Meaning                                                                                                                                                     |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Dummy text. (What does it say? »Nothing!«)`          | plain transcription incl. punctuation                                                                                                                       |
+| `\[`, `\]`, `\{`, `\}`, `\\|`, `\_`, `\<`, `\>`, `\\` | transcription of characters requiring escaping (i.e. when they are supposed to be taken literally, not as indicators for XML or Hkoll syntax): `[]{}\|_<>\` |
+| `[#comment :-)]`                                      | comment (requires only `\` and `]` to be escaped)                                                                                                           |
+| `<pb edRef="#WitA" n="3v" />`                         | XML milestone (here: `tei:pb` element)                                                                                                                      |
+| `<h2>Second level headline</h2>`                      | common XML range (allows attributes, nesting)                                                                                                               |
+
+#### Syntax regarding single words
+
+The following markup can be applied to single words (not punctuation).
+
+| Markup                                      | Meaning                                                                                                  |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `abbr{eviation}`                            | resolution of abbreviation                                                                               |
+| `[-t]_[+c]_or_[+rec]_ted`                   | transcription of characters added to or removed from the original reading                                |
+| `to_gether`, `s_p_r_e_a_d`                  | one word appearing as separated units in the witness                                                     |
+| `written\|without\|space\|between\|words`   | separated words appearing as connected in the witness                                                    |
+| `[?uncertain]`                              | uncertain transcription (may need review or comment)                                                     |
+| `[!sic]`                                    | assertion that transcription is exactly as given (sic!)                                                  |
+| `[*faint], [*rupt]`                         | incomplete or unsure transcription due to corrupt original                                               |
+| `ydiosinkratick [=idiosyncratic]`           | normalisation of precedent word’s spelling                                                               |
+| `ypocas [>hypocras]`                        | obvious correction or charitable interpretation of precedent word                                        |
+| `ypocas [>hypocras] [=hippocrates]`         | correction and normalisation of precedent word                                                           |
+| `word [:w123]`                              | manual assignment of `xml:id` to precendent word (for stable referencing, e.g. by standoff)              |
+| `word [~WitA: weird] [~WitB, WitC: [#om.]]` | Single Token Variants linked to the precedent word (cf. [Single Token Variants](#single-token-variants)) |
+
+#### Syntax regarding word groups
+
+The following markup can be applied to words groups, including punctuation.
+
+Contexts can be nested, but must not interfere.
+
+| Markup                                        | Meaning                                              |
+| --------------------------------------------- | ---------------------------------------------------- |
+| `[+some added text]`                          | text (words, punctuation) added to the main text     |
+| `[-some deleted text]`                        | text (words, punctuation) removed from the main text |
+| `[\|marginal or interlinear note (paratext)]` | any kind of paratext                                 |
 
 ## How-To
 
@@ -240,7 +302,7 @@ For this solution, you need npm installed on your computer: https://www.npmjs.co
 3. Run `xslt3 -xsl:xsl/simple.xsl -s:output/<division>.xml -o:output/test.html`. In `-s` (source parameter: what XML file to take as input), replace `<division>` with `abstract`, `catullus` or `dante`.
 4. Wait, then find the generated file in `<path/to>/hkoll-demo/output` (unless you changed the `-o` output parameter, it is `test.html`).
 
-### Work on your texts
+### Next step: Start your own project
 
 TODO OMS
 
