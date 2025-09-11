@@ -1,0 +1,17 @@
+{
+    "alphabet": {},
+    "assimilation": {},
+    "anywhere": {},
+    "prefix": {
+        "congn": "cogn"
+    },
+    "suffix": {
+        "ccio": "ctio",
+        "ccione": "ctione"
+    },
+    "wholeWord": {
+        "cognicio": "cognitio",
+        "cognicione": "cognitione"
+    },
+    "unchanged": []
+}

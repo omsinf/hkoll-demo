@@ -41,3 +41,18 @@ relPaths:
     standoff: []
     output: "output/dante.xml"
     logFile: "output/dante_log.txt"
+  - division: "Leuven Workshop Example"
+    divisionId: "lvn"
+    process: True
+    model: "input/leuven/lvn_edition.yaml"
+    images:
+      - "input/leuven/lvn_A.yaml"
+      - "input/leuven/lvn_B.yaml"
+      - "input/leuven/lvn_C.yaml"
+      - "input/leuven/lvn_D.yaml"
+      - "input/leuven/lvn_E.yaml"
+      - "input/leuven/lvn_F.yaml"
+    normRules: "input/leuven/lvn_NormRules.json"
+    standoff: []
+    output: "output/leuven.xml"
+    logFile: "output/leuven_log.txt"
